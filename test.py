@@ -40,32 +40,4 @@ print("山牌:",mjParse.Z(o["Z"][0]))
 print("N-----")
 print("名前:",mjParse.N(o["N"][0],OYA))
 
-states = {"東":{},"南":{},"西":{},"北":{}}
-richi_ippatsu = {"東":False,"南":False,"西":False,"北":False}
-jyunme = 0
-actions = mjParse.A(o["A"][0],OYA)
-kaze_num = {"東":0,"南":1,"西":2,"北":3}
-for i,x in enumerate(actions):
-    if x[0] == "東" and actions[i-1][0] != "東":
-        jyunme += 1
-    if not type(x[1]) == type([]):
-        if x[1] in ["ロン","ツモ"]:
-            states[x[0]][x[1]] = jyunme
-            if richi_ippatsu[x[0]] and states[x[0]]["リーチ"]+1 >= jyunme:
-                states[x[0]]["一発"] = True
-        if x[1] == "リーチ":
-            states[x[0]]["リーチ"] = jyunme
-            richi_ippatsu[x[0]] = True
-    else:
-        if x[1][0][1] == "槓":
-            richi_ippatsu = {"東":False,"南":False,"西":False,"北":False}
-            if x[0] != "東" and kaze_num[actions[i-1][0]]<kaze_num[x[0]]:
-                jyunme += 1
-                print("a")
-        if x[1][0] in ["ポン","チー"]:
-            richi_ippatsu = {"東":False,"南":False,"西":False,"北":False}
-            if x[0] != "東" and kaze_num[actions[i-1][0]]<kaze_num[x[0]]:
-                jyunme += 1
-                print("b")
-    print(jyunme,x)
-print(states)
+print(mjParse.get_test(mjParse.A(o["A"][0],OYA)))
