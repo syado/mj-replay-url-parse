@@ -109,8 +109,12 @@ def get_action(s,oyaposition):
         else:
             skip = 0
             if s[i] == "_":
-                a = ["ツモ切り",l(s[i-1])]
-                s[i] = s[i-1]
+                if s[i-1] == "R":
+                    a = ["ツモ切り",l(s[i-2])]
+                    s[i] = s[i-2]
+                else:
+                    a = ["ツモ切り",l(s[i-1])]
+                    s[i] = s[i-1]
                 sute = True
             elif s[i] == "R":
                 a = "リーチ"
